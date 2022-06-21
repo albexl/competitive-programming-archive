@@ -4,23 +4,6 @@ using namespace std;
 
 typedef long long ll;
 
-vector<vector<int>> g;
-vector<int> b, w;
-string s;
-
-void dfs(int u)
-{
-    b[u] += s[u - 1] == 'B';
-    w[u] += s[u - 1] == 'W';
-
-    for (auto &v : g[u])
-    {
-        dfs(v);
-        b[u] += b[v];
-        w[u] += w[v];
-    }
-}
-
 int main()
 {
 
@@ -32,25 +15,43 @@ int main()
 
     while (t--)
     {
-        int n;
-        cin >> n;
-
-        g = vector<vector<int>>(n + 1);
-        b = vector<int>(n + 1);
-        w = vector<int>(n + 1);
-        for (int i = 2, x; i <= n; i++)
-        {
-            cin >> x;
-            g[x].push_back(i);
-        }
-
-        cin >> s;
-
-        dfs(1);
+        int n, k;
+        cin >> n >> k;
+        vector<ll> a(n + 5);
+        for (int i = 1; i <= n; i++)
+            cin >> a[i];
 
         int ans = 0;
-        for (int i = 1; i <= n; i++)
-            ans += (w[i] == b[i]);
+        int b = 0;
+
+        for (int i = 2; i <= k + 1; i++)
+        {
+            if (a[i - 1] < a[i] * 2)
+                b++;
+            else
+                b--;
+        }
+
+        if (b == k)
+            ans++;
+
+        // cout << b << " " << ans << endl;
+
+        for (int i = 2; i + k <= n; i++)
+        {
+            if (a[i - 1] < a[i] * 2)
+                b--;
+            else
+                b++;
+
+            if (a[i + k - 1] < a[i + k] * 2)
+                b++;
+            else
+                b--;
+            
+            if(b == k)
+                ans++;
+        }
 
         cout << ans << endl;
     }
