@@ -14,39 +14,42 @@ int main()
     cin >> t;
     while (t--)
     {
-        int n, m;
-        cin >> n >> m;
-
-        map<ll, ll> m1, m2;
-        vector<vector<ll>> a(n, vector<ll>(m));
-        for (int i = 0; i < n; i++)
-            for (int j = 0; j < m; j++)
-                cin >> a[i][j];
-
+        int n;
+        cin >> n;
+        multiset<string> s;
+        vector<string> a(n);
         for (int i = 0; i < n; i++)
         {
-            for (int j = 0; j < m; j++)
-            {
-                ll x = i - j;
-                ll y = i + j;
-                if (m1.find(x) == m1.end())
-                    m1[x] = 0;
-                if (m2.find(y) == m2.end())
-                    m2[y] = 0;
-                m1[x] += a[i][j];
-                m2[y] += a[i][j];
-            }
+            cin >> a[i];
+            s.insert(a[i]);
         }
+        string ans = "";
 
-        ll ans = 0;
         for (int i = 0; i < n; i++)
         {
-            for (int j = 0; j < m; j++)
+            s.erase(s.find(a[i]));
+
+            bool ok = false;
+            for (int j = 0; j + 1 < a[i].size(); j++)
             {
-                ll x = i - j;
-                ll y = i + j;
-                ans = max(ans, m1[x] + m2[y] - a[i][j]);
+                string pref = "", suff = "";
+                for (int k = 0; k <= j; k++)
+                    pref += a[i][k];
+                for (int k = j + 1; k < a[i].size(); k++)
+                    suff += a[i][k];
+                if (s.find(pref) != s.end() && s.find(suff) != s.end())
+                {
+                    ok = true;
+                    break;
+                }
             }
+
+            if (ok)
+                ans += "1";
+            else
+                ans += "0";
+
+            s.insert(a[i]);
         }
 
         cout << ans << endl;
