@@ -1,0 +1,18 @@
+{
+    "files.associations": {
+        "random": "cpp",
+        "xstring": "cpp",
+        "xiosbase": "cpp",
+        "ostream": "cpp",
+        "initializer_list": "cpp",
+        "type_traits": "cpp",
+        "vector": "cpp",
+        "xutility": "cpp",
+        "limits": "cpp",
+        "istream": "cpp",
+        "xlocale": "cpp",
+        "utility": "cpp",
+        "xlocnum": "cpp",
+        "xmemory": "cpp"
+    }
+}
